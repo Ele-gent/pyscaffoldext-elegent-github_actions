@@ -1,35 +1,53 @@
+"""Extension that generates configuration for GitHub Actions."""
+from argparse import ArgumentParser
+from functools import partial
 from typing import List
 
-from pyscaffold.actions import Action  # ActionParams, ScaffoldOpts, Structure
-from pyscaffold.extensions import Extension
+from pyscaffold import structure
+from pyscaffold.actions import Action, ActionParams, ScaffoldOpts, Structure
+from pyscaffold.extensions import Extension, include
+from pyscaffold.extensions.pre_commit import PreCommit
+from pyscaffold.operations import no_overwrite
+from pyscaffold.templates import get_template
 
-# from pyscaffold.operations import no_overwrite
-# from pyscaffold.structure import merge
-# from pyscaffold.templates import get_template
+from . import templates
+
+TEMPLATE_FILE = "elegent_github_ci_workflow"
+
+template = partial(get_template, relative_to=templates)
 
 
 class ElegentGithubActions(Extension):
-    """
-    This class serves as the skeleton for your new PyScaffold Extension. Refer
-    to the official documentation to discover how to implement a PyScaffold
-    extension - https://pyscaffold.org/en/latest/extensions.html
-    """
+    """Add configuration file for GitHub Actions (includes `--pre-commit`)"""
+
+    def augment_cli(self, parser: ArgumentParser):
+        """Augments the command-line interface parser.
+        See :obj:`~pyscaffold.extension.Extension.augment_cli`.
+        """
+        parser.add_argument(
+            self.flag, help=self.help_text, nargs=0, action=include(PreCommit(), self)
+        )
+        return self
 
     def activate(self, actions: List[Action]) -> List[Action]:
-        """Activate extension. See :obj:`pyscaffold.extension.Extension.activate`."""
-        # actions = self.register(actions, add_files)
-        return actions
+        """Activate extension, see :obj:`~pyscaffold.extension.Extension.activate`."""
+        return self.register(actions, add_files, after="define_structure")
 
 
-# def add_files(struct: Structure, opts: ScaffoldOpts) -> ActionParams:
-#     """Add custom extension files. See :obj:`pyscaffold.actions.Action`"""
+def add_files(struct: Structure, opts: ScaffoldOpts) -> ActionParams:
+    """Add .github/workflows/ci.yml to the file structure
 
-#     template = get_template("awesome_file", relative_to=__name__)
-#     test_template = get_template("test_awesome_file", relative_to=__name__)
+    Args:
+        struct: project representation as (possibly) nested :obj:`dict`.
+        opts: given options, see :obj:`create_project` for an extensive list.
 
-#     files: Structure = {
-#         "src": {opts["package"]: {"awesome_file.py": (template, no_overwrite())}},
-#         "tests": {"test_awesome_file.py": (test_template, no_overwrite())},
-#     }
+    Returns:
+        struct, opts: updated project representation and options
+    """
+    ci_workflow = template(TEMPLATE_FILE).template  # no substitutions
 
-#     return merge(struct, files), opts
+    files: Structure = {
+        ".github": {"workflows": {"ci.yml": (ci_workflow, no_overwrite())}}
+    }
+
+    return structure.merge(struct, files), opts

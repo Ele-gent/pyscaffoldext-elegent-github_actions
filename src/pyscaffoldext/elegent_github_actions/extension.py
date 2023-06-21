@@ -1,5 +1,6 @@
 """Extension that generates configuration for GitHub Actions."""
 from argparse import ArgumentParser
+from functools import partial
 from typing import List
 
 from pyscaffold import structure
@@ -9,7 +10,11 @@ from pyscaffold.extensions.pre_commit import PreCommit
 from pyscaffold.operations import no_overwrite
 from pyscaffold.templates import get_template
 
+from . import templates
+
 TEMPLATE_FILE = "elegent_github_ci_workflow"
+
+template = partial(get_template, relative_to=templates)
 
 
 class ElegentGithubActions(Extension):
@@ -39,9 +44,7 @@ def add_files(struct: Structure, opts: ScaffoldOpts) -> ActionParams:
     Returns:
         struct, opts: updated project representation and options
     """
-    ci_workflow = get_template(
-        TEMPLATE_FILE, relative_to=__name__
-    ).template  # no substitutions
+    ci_workflow = template(TEMPLATE_FILE).template  # no substitutions
 
     files: Structure = {
         ".github": {"workflows": {"ci.yml": (ci_workflow, no_overwrite())}}

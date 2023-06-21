@@ -44,6 +44,8 @@ python -m pip install git+https://github.com/Ele-gent/pyscaffoldext-elegent-gith
 python -m pip install git+https://github.com/Ele-gent/pyscaffoldext-elegent-github_actions.git@v1.0.0
 ```
 
+Note that `putup -h` shows a new option `--elegent-github-actions`.
+
 ## Usage
 
 ```shell

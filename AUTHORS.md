@@ -1,3 +1,3 @@
 # Contributors
 
-* DaanVanHauwermeiren [daan.van.hauwermeiren@gmail.com](mailto:daan.van.hauwermeiren@gmail.com)
+* DaanVanHauwermeiren [daan.vanhauwermeiren@ele.gent](mailto:daan.vanhauwermeiren@ele.gent)

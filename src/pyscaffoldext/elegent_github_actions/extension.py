@@ -39,7 +39,9 @@ def add_files(struct: Structure, opts: ScaffoldOpts) -> ActionParams:
     Returns:
         struct, opts: updated project representation and options
     """
-    ci_workflow = get_template(TEMPLATE_FILE).template  # no substitutions
+    ci_workflow = get_template(
+        TEMPLATE_FILE, relative_to=__name__
+    ).template  # no substitutions
 
     files: Structure = {
         ".github": {"workflows": {"ci.yml": (ci_workflow, no_overwrite())}}

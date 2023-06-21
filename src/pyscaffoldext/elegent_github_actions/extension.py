@@ -9,7 +9,7 @@ from pyscaffold.extensions.pre_commit import PreCommit
 from pyscaffold.operations import no_overwrite
 from pyscaffold.templates import get_template
 
-TEMPLATE_FILE = "github_ci_workflow"
+TEMPLATE_FILE = "elegent_github_ci_workflow"
 
 
 class ElegentGithubActions(Extension):

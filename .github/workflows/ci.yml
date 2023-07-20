@@ -7,6 +7,8 @@ name: tests
 on:
   issue_comment: # triggered by specific wording in the comment, see the line right below jobs: prepare
     types: [created]
+  workflow_dispatch:  # Allow manually triggering the workflow
+
 jobs:
   prepare:
     if: ${{ (github.event_name == 'issue_comment' && contains(github.event.comment.body, 'run ci') && github.event.issue.pull_request) || github.event_name != 'issue_comment' }}
@@ -42,7 +44,7 @@ jobs:
     strategy:
       matrix:
         python:
-        # - "3.8"  # oldest Python supported by PSF
+        # - "3.7"  # oldest Python supported by PSF
         - "3.8"  # minimum requirement for DVC
         - "3.11"  # newest Python that is stable
         platform:

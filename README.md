@@ -1,4 +1,5 @@
 [![Project generated with PyScaffold](https://img.shields.io/badge/-PyScaffold-005CA0?logo=pyscaffold)](https://pyscaffold.org/)
+[![tests](https://github.com/Ele-gent/pyscaffoldext-elegent-github_actions/actions/workflows/ci.yml/badge.svg)](https://github.com/Ele-gent/pyscaffoldext-elegent-github_actions/actions/workflows/ci.yml)
 
 # pyscaffoldext-elegent-github_actions
 

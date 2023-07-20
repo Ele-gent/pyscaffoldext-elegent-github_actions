@@ -5,6 +5,8 @@
 name: tests
 
 on:
+  pull_request:
+    types: [ready_for_review]
   issue_comment: # triggered by specific wording in the comment, see the line right below jobs: prepare
     types: [created]
   workflow_dispatch:  # Allow manually triggering the workflow

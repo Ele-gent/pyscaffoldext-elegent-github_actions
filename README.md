@@ -9,6 +9,9 @@ To be used with PyScaffold if you want the custom Elegent ci files instead of th
 
 ## Installation
 
+**NOTE**:
+The recommandation is to have 1 conda environment to put all your pyscaffold-shenanigans in (pyscaffold, and all the elegent custom extensions).
+
 To install it, either clone this repo locally and install:
 
 ```bash

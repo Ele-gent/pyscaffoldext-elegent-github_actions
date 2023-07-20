@@ -34,7 +34,7 @@ jobs:
   prepare:
     # if: ${{ (github.event_name == 'issue_comment' && contains(github.event.comment.body, 'run ci') && github.event.issue.pull_request) || github.event_name != 'issue_comment' }}
     # if: ${{ (contains(github.event.comment.body, 'run ci') && github.event.issue.pull_request) || github.event_name != 'issue_comment' }}
-    if: ${{ contains(github.event.comment.body, 'run')}}
+    if: contains(github.event.comment.body, 'run')
     # if: github.event.issue.pull_request != null && startsWith(github.event.comment.body, '/run ci')
     # if: |
     #       (github.event_name == 'issue_comment' &&

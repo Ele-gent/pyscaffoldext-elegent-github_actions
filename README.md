@@ -25,8 +25,8 @@ cd pyscaffoldext-elegent-github_actions
 source activate CONDA_ENV
 # or a venv
 source /path/to/venv/location/.venv/bin/activate
-# install this package
-python -m pip install elegentstyles
+# install this package in editable mode
+python -m pip install -e pyscaffoldext-elegent-github_actions
 ```
 
 or download straight from github:
@@ -53,7 +53,7 @@ Note that `putup -h` shows a new option `--elegent-github-actions`.
 ## Usage
 
 ```shell
-putup --elegent-github-actions
+putup TEST --elegent-github-actions
 ```
 
 *NOTE*: can be used in combination with other options!

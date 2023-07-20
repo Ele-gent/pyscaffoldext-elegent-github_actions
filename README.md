@@ -1,4 +1,5 @@
 [![Project generated with PyScaffold](https://img.shields.io/badge/-PyScaffold-005CA0?logo=pyscaffold)](https://pyscaffold.org/)
+[![tests](https://github.com/Ele-gent/pyscaffoldext-elegent-github_actions/actions/workflows/ci.yml/badge.svg)](https://github.com/Ele-gent/pyscaffoldext-elegent-github_actions/actions/workflows/ci.yml)
 
 # pyscaffoldext-elegent-github_actions
 
@@ -7,6 +8,9 @@
 To be used with PyScaffold if you want the custom Elegent ci files instead of the standard ones from PyScaffold.
 
 ## Installation
+
+**NOTE**:
+The recommandation is to have 1 conda environment to put all your pyscaffold-shenanigans in (pyscaffold, and all the elegent custom extensions).
 
 To install it, either clone this repo locally and install:
 
@@ -21,8 +25,8 @@ cd pyscaffoldext-elegent-github_actions
 source activate CONDA_ENV
 # or a venv
 source /path/to/venv/location/.venv/bin/activate
-# install this package
-python -m pip install elegentstyles
+# install this package in editable mode
+python -m pip install -e pyscaffoldext-elegent-github_actions
 ```
 
 or download straight from github:
@@ -49,7 +53,7 @@ Note that `putup -h` shows a new option `--elegent-github-actions`.
 ## Usage
 
 ```shell
-putup --elegent-github-actions
+putup TEST --elegent-github-actions
 ```
 
 *NOTE*: can be used in combination with other options!

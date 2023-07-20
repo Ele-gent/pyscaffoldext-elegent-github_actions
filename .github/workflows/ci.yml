@@ -14,25 +14,25 @@ on:
     types: [opened, reopened, ready_for_review, review_requested]
   issue_comment: # triggered by specific wording in the comment, see the line right below jobs: prepare
     types: [created]
-  pull_request_review:
-    types: [submitted, edited, dismissed]
-  pull_request_review_comment:
-    types: [created, edited, deleted]
+  # pull_request_review:
+  #   types: [submitted, edited, dismissed]
+  # pull_request_review_comment:
+  #   types: [created, edited, deleted]
   workflow_dispatch:  # Allow manually triggering the workflow
   schedule:
     # Run roughly every 15 days at 00:00 UTC
     # (useful to check if updates on dependencies break the package)
     - cron: '0 0 1,16 * *'
 
-concurrency:
-  group: >-
-    ${{ github.workflow }}-${{ github.ref_type }}-
-    ${{ github.event.pull_request.number || github.sha }}
-  cancel-in-progress: true
+# concurrency:
+#   group: >-
+#     ${{ github.workflow }}-${{ github.ref_type }}-
+#     ${{ github.event.pull_request.number || github.sha }}
+#   cancel-in-progress: true
 
 jobs:
   prepare:
-    # if: ${{ (github.event_name == 'issue_comment' && contains(github.event.comment.body, 'run ci') && github.event.issue.pull_request) || github.event_name != 'issue_comment' }}
+    if: ${{ (github.event_name == 'issue_comment' && contains(github.event.comment.body, 'run ci') && github.event.issue.pull_request) || github.event_name != 'issue_comment' }}
     # if: ${{ (contains(github.event.comment.body, 'run ci') && github.event.issue.pull_request) || github.event_name != 'issue_comment' }}
     # if: contains(github.event.comment.body, 'run')
     # if: github.event.issue.pull_request != null && startsWith(github.event.comment.body, '/run ci')

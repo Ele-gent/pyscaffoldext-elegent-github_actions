@@ -1,3 +1,6 @@
+# This is a template, alter to your own needs
+# regerated using pyscaffoldext-elegent-githubactions version ${elegent_githubactions_version}
+
 name: tests
 
 on:
@@ -87,6 +90,11 @@ jobs:
         uses: actions/download-artifact@v3
         with: {name: python-distribution-files, path: dist/}
       - name: Run tests
+        env:
+          # add the GH environment secret if needed
+          # for instance when adding a dependency that lives on an
+          # Elegent private GH repo
+          # GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: >-
           pipx run --python '${{ steps.setup-python.outputs.python-path }}'
           tox --installpkg '${{ needs.prepare.outputs.wheel-distribution }}'

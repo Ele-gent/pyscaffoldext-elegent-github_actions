@@ -60,6 +60,10 @@ putup TEST --elegent-github-actions
 
 <!-- pyscaffold-notes -->
 
+## Testing and developing workflows
+
+Some changes to the github actions can be tested directly in the branch itself. However, I have found that for most of the changes, they need to be present in main before they can be triggered correctly. This means that against all normal recommendation, it seems that working on the main branch is needed here. When in doubt: try to add a dummy workflow file to a feature branch. Commit and push to origin. Now list the actions with  the GH CLI `gh workflow list`. Chances are slim that your new workflow will appear here.
+
 ## Note
 
 This project has been set up using PyScaffold 4.5. For details and usage

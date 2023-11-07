@@ -1,18 +1,20 @@
-name: pull request comment
+name: Pull Request Comment
 on:
   issue_comment:
-    types: [created, edited, deleted]
+    types: [created, edited]
 
 jobs:
   job1:
-    if: contains(github.event.comment.html_url, '/pull/')    # check if the comments come from pull request, exclude those from issue.
+    # This condition ensures that the job only runs if the comment is on a pull request
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test') || contains(github.event.comment.body, '/support') }}
     runs-on: ubuntu-latest
     steps:
-    - name: say hello
-      if: contains(github.event.comment.body, '/support')   # check the comment if it contains the keywords
-      run: |
-        echo say hello
-    - name: test
-      if: contains(github.event.comment.body, '/test')  # check the comment if it contains the keywords
-      run: |
-        echo test
+      - name: Say hello
+        # This condition checks if the comment contains the '/support' keyword
+        if: contains(github.event.comment.body, '/support')
+        run: echo "Hello from support!"
+
+      - name: Test
+        # This condition checks if the comment contains the '/test' keyword
+        if: contains(github.event.comment.body, '/test')
+        run: echo "Running tests!"

@@ -30,14 +30,24 @@ concurrency:
 
 jobs:
   testtriggering:
-    runs-on: ubuntu-latest
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '/run ci')
+    if: contains(github.event.comment.html_url, '/pull/')    # check if the comments come from pull request, exclude those from issue.
+    runs-on: [ubuntu-latest]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Deploy
+      - name: say hello
+        if: contains(github.event.comment.body, '/support')   # check the comment if it contains the keywords
         run: |
-          echo "Deploying..."
+          echo say hello
+      - name: test
+        if: contains(github.event.comment.body, '/test')  # check the comment if it contains the keywords
+        run: |
+          echo test
+    # if: github.event.issue.pull_request && contains(github.event.comment.body, '/run ci')
+    # steps:
+    #   - name: Checkout
+    #     uses: actions/checkout@v3
+    #   - name: Deploy
+    #     run: |
+    #       echo "Deploying..."
   prepare:
     # if: >-
     #   github.event_name != 'issue_comment' ||

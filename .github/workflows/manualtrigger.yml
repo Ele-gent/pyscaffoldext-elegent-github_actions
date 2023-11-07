@@ -28,3 +28,10 @@ jobs:
       - name: yet another one
         if: startsWith(github.event.comment.body, '/ci')
         run: echo "Running tests!"
+
+  job2:
+    runs-on: ubuntu-latest
+    if: github.event.issue.pull_request != '' && startsWith(github.event.comment.body, '/run ci')
+    steps:
+      - name: Run CI
+        run: echo "Running CI!"

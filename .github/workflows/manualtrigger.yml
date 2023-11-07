@@ -13,7 +13,7 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
   job1:
     # This condition ensures that the job only runs if the comment is on a pull request
-    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test') || contains(github.event.comment.body, '/support') }}
+    if: github.event.issue.pull_request
     runs-on: ubuntu-latest
     steps:
       - name: Say hello
@@ -24,4 +24,7 @@ jobs:
       - name: Test
         # This condition checks if the comment contains the '/test' keyword
         if: contains(github.event.comment.body, '/test')
+        run: echo "Running tests!"
+      - name: yet another one
+        if: startsWith(github.event.comment.body, '/run ci')
         run: echo "Running tests!"

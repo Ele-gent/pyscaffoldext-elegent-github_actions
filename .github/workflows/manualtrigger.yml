@@ -4,6 +4,13 @@ on:
     types: [created, edited]
 
 jobs:
+  job0:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
   job1:
     # This condition ensures that the job only runs if the comment is on a pull request
     if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test') || contains(github.event.comment.body, '/support') }}

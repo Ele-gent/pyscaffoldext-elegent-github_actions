@@ -72,8 +72,9 @@ jobs:
     strategy:
       matrix:
         python:
-        - "3.8"  # minimum requirement for DVC, oldest supported Python
-        - "3.9"
+        # - "3.8"  # minimum requirement for DVC, oldest supported Python
+        # - "3.9"
+        # atm, we only care about 3.10 and up
         - "3.10"
         - "3.11"
         - "3.12"  # newest Python that is stable

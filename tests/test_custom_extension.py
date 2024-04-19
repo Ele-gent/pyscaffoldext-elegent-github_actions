@@ -21,6 +21,7 @@ def test_add_custom_extension(tmpfolder):
     cli.main(args)
     assert Path("my_project/src/my_package/__init__.py").exists()
     assert Path("my_project/.github/workflows/ci.yml").exists()
+    assert Path("my_project/.github/dependabot.yml").exists()
 
 
 def test_add_custom_extension_and_pretend(tmpfolder):
@@ -30,6 +31,7 @@ def test_add_custom_extension_and_pretend(tmpfolder):
 
     assert not Path("my_project").exists()
     assert not Path("my_project/.github/workflows/ci.yml").exists()
+    assert not Path("my_project/.github/dependabot.yml").exists()
 
 
 def test_add_custom_extension_with_namespace(tmpfolder):

@@ -8,9 +8,10 @@ from pyscaffold.extensions import Extension, include
 from pyscaffold.extensions.pre_commit import PreCommit
 from pyscaffold.operations import no_overwrite
 
-from .templates import ci_yaml
+from .templates import ci_yaml, dependabot_yaml
 
 TEMPLATE_FILE = "elegent_github_ci_workflow"
+
 
 class ElegentGithubActions(Extension):
     """Add configuration file for GitHub Actions (includes `--pre-commit`)"""
@@ -20,8 +21,11 @@ class ElegentGithubActions(Extension):
         See :obj:`~pyscaffold.extension.Extension.augment_cli`.
         """
         parser.add_argument(
-            self.flag, help=self.help_text, nargs=0, 
-            dest="extensions", action=include(PreCommit(), self)
+            self.flag,
+            help=self.help_text,
+            nargs=0,
+            dest="extensions",
+            action=include(PreCommit(), self),
         )
         return self
 
@@ -41,8 +45,10 @@ def add_files(struct: Structure, opts: ScaffoldOpts) -> ActionParams:
         struct, opts: updated project representation and options
     """
     files: Structure = {
-        ".github": {"workflows": {"ci.yml": (ci_yaml(opts), no_overwrite())}}
+        ".github": {
+            "workflows": {"ci.yml": (ci_yaml(opts), no_overwrite())},
+            "dependabot.yml": (dependabot_yaml(opts), no_overwrite()),
+        }
     }
 
     return structure.merge(struct, files), opts
-
